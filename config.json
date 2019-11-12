@@ -1,0 +1,6 @@
+{
+    "menu": [
+        ["Home", "/"],
+        ["Your Profile", "account"]
+    ]
+}
