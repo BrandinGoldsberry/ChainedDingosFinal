@@ -1,0 +1,23 @@
+extends layout
+
+block content
+
+    form(id='form' method='post' action='/submitted')
+        p Username: &nbsp;
+            input(type='text' name='username')
+        p Password: &nbsp;
+            input(type='text' name='password')
+        p 
+            input(type='submit' value='Submit!')
+
+    form(id='form' method='post' action='/submitted')
+        p Username: &nbsp;
+            input(type='text' name='username')
+        p Password: &nbsp;
+            input(type='text' name='password')
+        p Email: &nbsp;
+            input(type='text' name='email')
+        p Age: &nbsp;
+            input(type='text' name='age')
+        p 
+            input(type='submit' value='Submit!')
