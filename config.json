@@ -3,5 +3,8 @@
         ["Home", "/"],
         ["Account", "account"],
         ["Log In", "login"]
-    ]
+    ],
+
+    "image": 
+        "/TheChainDingos.png"
 }

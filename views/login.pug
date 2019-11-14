@@ -2,7 +2,7 @@ extends layout
 
 block content
     h3 Sign Up
-    form(id='form' method='post' action='/index')
+    form(id='form' method='post' action='/authenticate')
         p Username: &nbsp;
             input(type='text' name='username')
         p Password: &nbsp;
@@ -15,7 +15,7 @@ block content
             input(type='submit' value='Submit!')
 
     h4 Log In
-    form(id='form' method='post' action='/index')
+    form(id='form' method='post' action='/createAccount')
         p Username: &nbsp;
             input(type='text' name='username')
         p Password: &nbsp;
