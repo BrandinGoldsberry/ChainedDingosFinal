@@ -1,6 +1,7 @@
 {
     "menu": [
         ["Home", "/"],
-        ["Your Profile", "account"]
+        ["Account", "account"],
+        ["Log Out", "login"]
     ]
 }
