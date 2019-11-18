@@ -2,6 +2,9 @@
     "menu": [
         ["Home", "/"],
         ["Account", "account"],
-        ["Log In", "login"]
-    ]
+        ["Log In/Sign Up", "login"]
+    ],
+
+    "image": 
+        "/TheChainDingos.png"
 }
