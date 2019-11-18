@@ -34,7 +34,7 @@ const urlencodedParser = bodyParser.urlencoded({
 app.get('/', routes.home);
 app.post('/createAccount', urlencodedParser, routes.createaccount);
 app.get('/login', routes.signUpLogIn);
-app.post('/auth', urlencodedParser, routes.authenticate);
+app.post('/authenticate', urlencodedParser, routes.authenticate);
 app.get('/user/:id', routes.user);
 //-----------------------------------------------
 

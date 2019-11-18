@@ -22,7 +22,7 @@ var accountSchema = mongoose.Schema({
     q3: String
 });
 
-var account = mongoose.model('People_Collection', accountSchema);
+var Account = mongoose.model('People_Collection', accountSchema);
 
 //Home Renderer
 exports.home = (req, res) => {
@@ -40,7 +40,7 @@ exports.signUpLogIn = (req, res) => {
 
 
 exports.user = (req, res) => {
-    var person = account.findById(req.params.id);
+    var person = Account.findById(req.params.id);
     res.render('account', {
         config,
         person
@@ -48,29 +48,32 @@ exports.user = (req, res) => {
 }
 
 exports.createaccount = (req, res) => {
-    var encryptPass = bcrypt.hash(req.body.password)
-    var account = new account({
-        username: req.body.username,
-        password: encryptPass,
-        email: req.body.email,
-        age: req.body.age,
-        q1: req.body.q1,
-        q2: req.body.q2,
-        q4: req.body.q3
+     bcrypt.hash(req.body.password, null, null, (err, hash) => {
+        var encryptPass = hash;
+        var account = new Account({
+            username: req.body.username,
+            password: encryptPass,
+            email: req.body.email,
+            age: req.body.age,
+            q1: req.body.q1,
+            q2: req.body.q2,
+            q4: req.body.q3
+        });
+        account.save(function (err, account) {
+            if(err) return console.error(err)
+            console.log(req.body.username + "added");
+        });
+        req.session.user = {
+            isAuthenticated: true,
+            username: account.username,
+            id: account.id
+        }
+        res.redirect('/');
     });
-    account.save((err, account) => {
-        if(err) return console.error(err)
-        console.log(req.username + "added");
-    });
-    req.session.user = {
-        isAuthenticated: true,
-        username: account.username
-    }
-    res.redirect('/');
 }
 
 exports.editaccount = (req, res) => {
-    account.findById(req.params.id, function (err, account) {
+    Account.findById(req.params.id, function (err, account) {
         if (err) return console.error(err);
         accountAcc = req.params.id;
         account.name = req.body.name;
@@ -88,25 +91,42 @@ exports.editaccount = (req, res) => {
         });
         req.session.user = {
             isAuthenticated: true,
-            username: account.username
+            username: account.username,
+            id: account.id
         }
     });
     res.redirect('/user/:' + req.params.id);
 };
 
-exports.authenticate = (res, req) => {
-    var account = account.find({username: req.body.username});
-    var isAuth = bcrypt.compare(account.password, req.body.password, (err, res) => {
-        if (err) console.log(err)
-        if (res) console.log(res)
+exports.authenticate = (req, res) => {
+    Account.find({username: req.body.username}, (err, fres) => {
+        console.log("Account ", fres);
+        if (err) console.log(err);
+        console.log("Entered Pass ", req.body.password);
+        
+        bcrypt.compare(req.body.password, fres[0].password, (err, ares) => {
+            if (err) {
+                console.log(err);  
+                console.log("Error!");
+            } 
+            if (ares) {
+                console.log(ares); 
+                console.log("Response!");
+            }
+            if(ares) {
+                req.session.user = {
+                    isAuthenticated: true,
+                    username: fres[0].username,
+                    id: fres[0].id
+                }
+                res.redirect('/user/:' + fres[0].id)
+            } else {
+                res.redirect('/login');
+            }
+        });
     });
-    if(isAuth) {
-        req.session.user = {
-            isAuthenticated: true,
-            username: account.username
-        }
-        res.redirect('/:' + account.id)
-    } else {
-        res.redirect('/');
-    }
+};
+
+exports.logOut = (res, req) => {
+    
 };
