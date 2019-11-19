@@ -27,9 +27,14 @@ var Account = mongoose.model('People_Collection', accountSchema);
 
 //Home Renderer
 exports.home = (req, res) => {
-    console.log(req.session);
     var hideSignIn;
     var hideAccount;
+    if(req.cookies.remembered) {
+        let cookie = JSON.parse(req.cookies.remembered);
+        req.session.user = cookie;
+    }
+    console.log(req.session.user);
+    
     if(req.session.user && req.session.user.isAuthenticated) {
         hideSignIn = "hideSignIn";
         hideAccount = "";
@@ -89,7 +94,7 @@ exports.createaccount = (req, res) => {
             age: req.body.age,
             q1: req.body.q1.toLowerCase(),
             q2: req.body.q2.toLowerCase(),
-            q4: req.body.q3.toLowerCase()
+            q3: req.body.q3.toLowerCase()
         });
         account.save(function (err, account) {
             if(err) return console.error(err)
@@ -117,9 +122,9 @@ exports.editaccount = (req, res) => {
                 account.age = req.body.Age;
                 account.password = result;
                 account.email = req.body.Email.toLowerCase();
-                account.q1 = req.body.q1.toLowerCase();
-                account.q2 = req.body.q2.toLowerCase();
-                account.q3 = req.body.q3.toLowerCase();
+                account.q1 = req.body.Q1.toLowerCase();
+                account.q2 = req.body.Q2.toLowerCase();
+                account.q3 = req.body.Q3.toLowerCase();
         
                 account.save(function (err, account) {
                     if (err) return console.error(err);
@@ -157,6 +162,9 @@ exports.authenticate = (req, res) => {
                         username: fres[0].username,
                         id: fres[0].id
                     }
+                    if(req.body.remember === "on") {
+                        res.cookie("remembered", `{"isAuthenticated": "true","username": "${fres[0].username}","id": "${fres[0].id}"}`, {maxAge: 99999999999999});
+                    }
                     res.redirect('/account')
                 } else {
                     res.redirect('/login?valid=isNotValid');
@@ -170,5 +178,6 @@ exports.authenticate = (req, res) => {
 
 exports.logOut = (req, res) => {
     req.session.destroy();
+    res.clearCookie('remembered');
     res.redirect('/');
 };
