@@ -1,24 +1,28 @@
 extends layout
 
 block content
-    h3 Sign Up
-    form(id='form' method='post' action='/createaccount')
-        p Username: &nbsp;
-            input(type='text' name='username')
-        p Password: &nbsp;
-            input(type='text' name='password')
-        p Email: &nbsp;
-            input(type='text' name='email')
-        p Age: &nbsp;
-            input(type='text' name='age')
-        p 
-            input(type='submit' value='Submit!')
 
-    h4 Log In
-    form(id='form' method='post' action='/authenticate')
-        p Username: &nbsp;
-            input(type='text' name='username')
-        p Password: &nbsp;
-            input(type='text' name='password')
-        p 
-            input(type='submit' value='Submit')
+    div(class='actForm')
+        div(id='right')
+            h3 Sign Up
+            form(id='form' method='post' action='/createaccount')
+                p Username: &nbsp;
+                    input(type='text' name='username')
+                p Password: &nbsp;
+                    input(type='text' name='password')
+                p Email: &nbsp;
+                    input(type='text' name='email')
+                p Age: &nbsp;
+                    input(type='text' name='age')
+                p 
+                    input(type='submit' value='Submit!')
+
+        div(id='left')
+            h3 Log In
+            form(id='form' method='post' action='/authenticate')
+                p Username: &nbsp;
+                    input(type='text' name='username')
+                p Password: &nbsp;
+                    input(type='text' name='password')
+                p 
+                    input(type='submit' value='Submit')

@@ -1,13 +1,14 @@
 html
     head
+        link(href='style.css', rel='stylesheet')
 
     body
         header
             nav
-                ul
+                ul(class='menu')
                     each item in config.menu
                         a(href=item[1])
-                            div(class='menu_item')
+                            div(class='menuItem')
                                 li(id=item[0]) #{item[0]} 
         section
             h1 #{title}

@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form(id='form', method='post', action='/account/' + person.id)
+    form(id='form', method='post', action='/account' + person.id)
         label(for='username') Username:
         input(type='text', name='Username' value=person.username)
         br

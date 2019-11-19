@@ -1,0 +1,66 @@
+html {
+    background: #CEFDCA;
+}
+
+h3 {
+    color: #24B300;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.menuItem {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 5px;
+    padding: 5px;
+    border: solid 3px #E6194A;
+    background: #FF94CC;
+    color: #991A06;
+    border-radius: 5px;
+}
+
+.menuItem:hover {
+    background: #1700AB;
+    border: solid 3px #6A8AEB;
+    color: #A1CDFF;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.actForm {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.hideAccount {
+    display: none;
+}
+
+.hideSignIn {
+    display: none;
+}
+
+#chainDingo {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%;
+}
+
+#mainTitle {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    width: 10%;
+}
