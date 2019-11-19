@@ -31,6 +31,7 @@ app.post('/editAccount', urlencodedParser, routes.editaccount);
 app.get('/login', routes.signUpLogIn);
 app.post('/authenticate', urlencodedParser, routes.authenticate);
 app.get('/account', routes.user);
+app.get('/logout', routes.logOut);
 //-----------------------------------------------
 
 app.listen(3000);
