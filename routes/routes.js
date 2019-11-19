@@ -58,7 +58,8 @@ exports.signUpLogIn = (req, res) => {
     res.render('login', {
         config,
         hideAccount,
-        hideSignIn
+        hideSignIn,
+        validLogin: req.query.valid
     });
 }
 
@@ -69,7 +70,8 @@ exports.user = (req, res) => {
             res.render('account', {
                 config,
                 person: fres,
-                hideAccount: "hideAccount"
+                hideAccount: "hideAccount",
+                hideSignIn: "hideSignIn"
             });
         });
     } else {
@@ -81,13 +83,13 @@ exports.createaccount = (req, res) => {
      bcrypt.hash(req.body.password, null, null, (err, hash) => {
         var encryptPass = hash;
         var account = new Account({
-            username: req.body.username,
+            username: req.body.username.toLowerCase(),
             password: encryptPass,
-            email: req.body.email,
+            email: req.body.email.toLowerCase(),
             age: req.body.age,
-            q1: req.body.q1,
-            q2: req.body.q2,
-            q4: req.body.q3
+            q1: req.body.q1.toLowerCase(),
+            q2: req.body.q2.toLowerCase(),
+            q4: req.body.q3.toLowerCase()
         });
         account.save(function (err, account) {
             if(err) return console.error(err)
@@ -103,57 +105,66 @@ exports.createaccount = (req, res) => {
 }
 
 exports.editaccount = (req, res) => {
-    Account.findById(req.params.id, function (err, account) {
+    Account.findById(req.session.user.id, function (err, account) {
         if (err) return console.error(err);
-        accountAcc = req.params.id;
-        account.name = req.body.name;
-        account.age = req.body.age;
-        var encryptPass = bcrypt.hash(req.body.password)
-        account.password = encryptPass;
-        account.email = req.body.email;
-        account.q1 = req.body.q1;
-        account.q2 = req.body.q2;
-        account.q3 = req.body.q3;
-
-        account.save(function (err, account) {
-            if (err) return console.error(err);
-            console.log(req.body.name + ' updated');
-        });
-        req.session.user = {
-            isAuthenticated: true,
-            username: account.username,
-            id: account.id
+        console.log(account);
+        
+        if(account) {
+            bcrypt.hash(req.body.Password, null, null, (err, result) => {
+                if (err) return console.error(err);
+                console.log(req.body);
+                account.name = req.body.Username.toLowerCase();
+                account.age = req.body.Age;
+                account.password = result;
+                account.email = req.body.Email.toLowerCase();
+                account.q1 = req.body.q1.toLowerCase();
+                account.q2 = req.body.q2.toLowerCase();
+                account.q3 = req.body.q3.toLowerCase();
+        
+                account.save(function (err, account) {
+                    if (err) return console.error(err);
+                    console.log(req.body.Username + ' updated');
+                    req.session.user = {
+                        isAuthenticated: true,
+                        username: account.username,
+                        id: account.id
+                    }
+                });
+            });
         }
     });
     res.redirect('/account');
 };
 
 exports.authenticate = (req, res) => {
-    Account.find({username: req.body.username}, (err, fres) => {
+    Account.find({username: req.body.username.toLowerCase()}, (err, fres) => {
         console.log("Account ", fres);
         if (err) console.log(err);
         console.log("Entered Pass ", req.body.password);
-        
-        bcrypt.compare(req.body.password, fres[0].password, (err, ares) => {
-            if (err) {
-                console.log(err);  
-                console.log("Error!");
-            } 
-            if (ares) {
-                console.log(ares); 
-                console.log("Response!");
-            }
-            if(ares) {
-                req.session.user = {
-                    isAuthenticated: true,
-                    username: fres[0].username,
-                    id: fres[0].id
+        if(fres[0]) {
+            bcrypt.compare(req.body.password, fres[0].password, (err, ares) => {
+                if (err) {
+                    console.log(err);  
+                    console.log("Error!");
+                } 
+                if (ares) {
+                    console.log(ares); 
+                    console.log("Response!");
                 }
-                res.redirect('/account')
-            } else {
-                res.redirect('/login');
-            }
-        });
+                if(ares) {
+                    req.session.user = {
+                        isAuthenticated: true,
+                        username: fres[0].username,
+                        id: fres[0].id
+                    }
+                    res.redirect('/account')
+                } else {
+                    res.redirect('/login?valid=isNotValid');
+                }
+            });
+        } else {
+            res.redirect('/login?valid=isNotValid');
+        }
     });
 };
 
