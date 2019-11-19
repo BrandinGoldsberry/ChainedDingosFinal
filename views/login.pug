@@ -3,26 +3,26 @@ extends layout
 block content
 
     div(class='actForm')
-        div(id='right')
+        div(id='right' class='sides')
             h3 Sign Up
             form(id='form' method='post' action='/createaccount')
                 p Username: &nbsp;
                     input(type='text' name='username')
                 p Password: &nbsp;
-                    input(type='text' name='password')
+                    input(type='password' name='password')
                 p Email: &nbsp;
                     input(type='text' name='email')
                 p Age: &nbsp;
                     input(type='text' name='age')
                 p 
-                    input(type='submit' value='Submit!')
+                    input(type='submit' value='Submit' class='btn')
 
-        div(id='left')
+        div(id='left' class='sides')
             h3 Log In
             form(id='form' method='post' action='/authenticate')
                 p Username: &nbsp;
                     input(type='text' name='username')
                 p Password: &nbsp;
-                    input(type='text' name='password')
+                    input(type='password' name='password')
                 p 
-                    input(type='submit' value='Submit')
+                    input(type='submit' value='Submit' class='btn')

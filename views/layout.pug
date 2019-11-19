@@ -3,8 +3,8 @@ html
         link(href='style.css', rel='stylesheet')
     body
         header
-            nav
-                ul
+            nav(id='nav')
+                ul(class='menu')
                     each item in config.menu
                         if item[0] === 'Account'
                             a(href=item[1], class=hideAccount)
