@@ -16,15 +16,9 @@ app.use(expressSession ({
     secret: 'aslkdm;salkdm;saldkwrrjewr983292398',
     saveUninitialized: true,
     resave: true,
+    cookie: {maxAge: 999999999999999}
 }));
-
-const checkAuth = (req, res, next) => {
-    if(req.session.user && req.session.user.isAuthenticated) {
-        next();
-    } else {
-        res.redirect('/');
-    }
-};
+app.use(cookieParser('BigBoi5'));
 
 const urlencodedParser = bodyParser.urlencoded({
     extended: true
