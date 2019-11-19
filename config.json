@@ -2,7 +2,8 @@
     "menu": [
         ["Home", "/"],
         ["Account", "account"],
-        ["Log In/Sign Up", "login?valid=isValid"]
+        ["Log In/Sign Up", "login?valid=isValid"],
+        ["Log Out", "logout"]
     ],
 
     "image": 

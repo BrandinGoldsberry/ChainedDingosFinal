@@ -168,6 +168,7 @@ exports.authenticate = (req, res) => {
     });
 };
 
-exports.logOut = (res, req) => {
-    
+exports.logOut = (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
 };
