@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+const cookieParser = require('cookie-parser');
 var expressSession = require('express-sessions');
 
 const config = require('../config.json');
@@ -26,6 +27,7 @@ var Account = mongoose.model('People_Collection', accountSchema);
 
 //Home Renderer
 exports.home = (req, res) => {
+    console.log(req.session);
     res.render('index', {
         config
     });
@@ -40,11 +42,23 @@ exports.signUpLogIn = (req, res) => {
 
 
 exports.user = (req, res) => {
-    var person = Account.findById(req.params.id);
-    res.render('account', {
-        config,
-        person
-    });
+    console.log("User id:", req.params.id);
+    if(req.params.id === "account") {
+        console.log(req.session.user);
+        if(req.session.user && req.session.user.isAuthenticated) {
+            res.redirect('/user/' + req.session.user.id);
+        } else {
+            res.redirect('/');
+        }
+    }
+    else {
+        Account.findById(req.params.id, (err, fres) => {
+            res.render('account', {
+                config,
+                person: fres
+            });
+        });
+    }
 }
 
 exports.createaccount = (req, res) => {
@@ -68,6 +82,9 @@ exports.createaccount = (req, res) => {
             username: account.username,
             id: account.id
         }
+        
+        res.cookie('isAuthed', '1', {maxAge: 99999999999999});
+        res.cookie('isAuthed', '1', {maxAge: 99999999999999});
         res.redirect('/');
     });
 }
@@ -95,7 +112,7 @@ exports.editaccount = (req, res) => {
             id: account.id
         }
     });
-    res.redirect('/user/:' + req.params.id);
+    res.redirect('/user/' + req.params.id);
 };
 
 exports.authenticate = (req, res) => {
@@ -119,7 +136,7 @@ exports.authenticate = (req, res) => {
                     username: fres[0].username,
                     id: fres[0].id
                 }
-                res.redirect('/user/:' + fres[0].id)
+                res.redirect('/user/' + fres[0].id)
             } else {
                 res.redirect('/login');
             }
