@@ -28,8 +28,19 @@ var Account = mongoose.model('People_Collection', accountSchema);
 //Home Renderer
 exports.home = (req, res) => {
     console.log(req.session);
+    var hideSignIn;
+    var hideAccount;
+    if(req.session.user && req.session.user.isAuthenticated) {
+        hideSignIn = "hideSignIn";
+        hideAccount = "";
+    } else {
+        hideSignIn = "";
+        hideAccount = "hideAccount";
+    }
     res.render('index', {
-        config
+        config,
+        hideAccount,
+        hideSignIn
     });
 }
 

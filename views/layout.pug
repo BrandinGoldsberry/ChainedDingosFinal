@@ -1,15 +1,23 @@
 html
     head
         link(href='style.css', rel='stylesheet')
-
     body
         header
             nav
-                ul(class='menu')
+                ul
                     each item in config.menu
-                        a(href=item[1])
-                            div(class='menuItem')
-                                li(id=item[0]) #{item[0]} 
+                        if item[0] === 'Account'
+                            a(href=item[1], class=hideAccount)
+                                div(class='menu_item')
+                                    li(id=item[0]) #{item[0]}
+                        else if item[0] === "Log In/Sign Up"
+                            a(href=item[1], class=hideSignIn)
+                                div(class='menu_item')
+                                    li(id=item[0]) #{item[0]}
+                        else
+                            a(href=item[1])
+                                div(class='menu_item')
+                                    li(id=item[0]) #{item[0]}
         section
             block content
         footer
