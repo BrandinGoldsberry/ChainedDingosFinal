@@ -27,9 +27,10 @@ const urlencodedParser = bodyParser.urlencoded({
 //HTTP REQUESTS----------------------------------
 app.get('/', routes.home);
 app.post('/createAccount', urlencodedParser, routes.createaccount);
+app.post('/editAccount', urlencodedParser, routes.editaccount);
 app.get('/login', routes.signUpLogIn);
 app.post('/authenticate', urlencodedParser, routes.authenticate);
-app.get('/user/:id', routes.user);
+app.get('/account', routes.user);
 //-----------------------------------------------
 
 app.listen(3000);

@@ -46,29 +46,34 @@ exports.home = (req, res) => {
 
 //Sign up and login renderer
 exports.signUpLogIn = (req, res) => {
+    var hideSignIn;
+    var hideAccount;
+    if(req.session.user && req.session.user.isAuthenticated) {
+        hideSignIn = "hideSignIn";
+        hideAccount = "";
+    } else {
+        hideSignIn = "";
+        hideAccount = "hideAccount";
+    }
     res.render('login', {
-        config
+        config,
+        hideAccount,
+        hideSignIn
     });
 }
 
 
 exports.user = (req, res) => {
-    console.log("User id:", req.params.id);
-    if(req.params.id === "account") {
-        console.log(req.session.user);
-        if(req.session.user && req.session.user.isAuthenticated) {
-            res.redirect('/user/' + req.session.user.id);
-        } else {
-            res.redirect('/');
-        }
-    }
-    else {
-        Account.findById(req.params.id, (err, fres) => {
+    if(req.session.user && req.session.user.isAuthenticated) {
+        Account.findById(req.session.user.id, (err, fres) => {
             res.render('account', {
                 config,
-                person: fres
+                person: fres,
+                hideAccount: "hideAccount"
             });
         });
+    } else {
+        res.redirect('/');
     }
 }
 
@@ -93,9 +98,6 @@ exports.createaccount = (req, res) => {
             username: account.username,
             id: account.id
         }
-        
-        res.cookie('isAuthed', '1', {maxAge: 99999999999999});
-        res.cookie('isAuthed', '1', {maxAge: 99999999999999});
         res.redirect('/');
     });
 }
@@ -123,7 +125,7 @@ exports.editaccount = (req, res) => {
             id: account.id
         }
     });
-    res.redirect('/user/' + req.params.id);
+    res.redirect('/account');
 };
 
 exports.authenticate = (req, res) => {
@@ -147,7 +149,7 @@ exports.authenticate = (req, res) => {
                     username: fres[0].username,
                     id: fres[0].id
                 }
-                res.redirect('/user/' + fres[0].id)
+                res.redirect('/account')
             } else {
                 res.redirect('/login');
             }
