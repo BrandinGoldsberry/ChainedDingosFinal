@@ -1,18 +1,16 @@
 extends layout
 
 block content
-    form(id='form', method='post', action='/editaccount')
-        label(for='username') Username:
-        input(type='text', name='Username' value=person.username)
-        br
-        label(for='password') Password:
-        input(type='password', name='Password')
-        br
-        label(for='email') Email:
-        input(type='text', name='Email' value=person.email)
-        br
-        label(for='age') Age:
-        input(type='text', name='Age' value=person.age)
-        br
-        input(type='submit', value='Submit', class='btn')
+    div(class='edit')
+        form(id='form', method='post', action='/editaccount')
+            p Username: &nbsp;
+                input(type='text', name='Username' value=person.username)
+            p Password: &nbsp;
+                input(type='password', name='Password')
+            p Email: &nbsp;
+                input(type='text', name='Email' value=person.email)
+            p Age: &nbsp;
+                input(type='text', name='Age' value=person.age)
+            p
+                input(type='submit', value='Submit', class='btn')
 
