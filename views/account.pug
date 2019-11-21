@@ -11,12 +11,77 @@ block content
                 input(type='text', name='Email' value=person.email)
             p Age: &nbsp;
                 input(type='text', name='Age' value=person.age)
-            p Favourite primary colour: &nbsp;
-                input(type='text' name='Q1' value=person.q1)
-            p Number of Siblings: &nbsp;
-                input(type='text' name='Q2' value=person.q2)
-            p Gender Identification: &nbsp;
-                input(type='text' name='Q3' value=person.q3)
+            p What is your favourite primary colour? (Red, Yellow or Blue): &nbsp;
+                select(name="q1")
+                    case person.q1
+                        when "yellow"
+                            option(value="red") Red
+                            option(value="yellow" selected) Yellow
+                            option(value="blue") Blue
+                        when "blue"
+                            option(value="red") Red
+                            option(value="yellow") Yellow
+                            option(value="blue" selected) Blue
+                        default
+                            option(value="red" selected) Red
+                            option(value="yellow") Yellow
+                            option(value="blue") Blue
+            p How many siblings do you have? &nbsp;
+                select(name="q2")
+                    case person.q2
+                        when "one"
+                            option(value="zero") 0
+                            option(value="one" selected) 1
+                            option(value="two") 2
+                            option(value="three") 3
+                            option(value="fourplus") 4+
+                        when "two"
+                            option(value="zero") 0
+                            option(value="one") 1
+                            option(value="two" selected) 2
+                            option(value="three") 3
+                            option(value="fourplus") 4+
+                        when "three"
+                            option(value="zero") 0
+                            option(value="one") 1
+                            option(value="two") 2
+                            option(value="three" selected) 3
+                            option(value="fourplus") 4+
+                        when "fourplus"
+                            option(value="zero") 0
+                            option(value="one") 1
+                            option(value="two") 2
+                            option(value="three") 3
+                            option(value="fourplus" selected) 4+
+                        default
+                            option(value="zero" selected) 0
+                            option(value="one") 1
+                            option(value="two") 2
+                            option(value="three") 3
+                            option(value="fourplus") 4+
+            p What do you identify as? (Male, Female, Non-Binary, or Other): &nbsp;
+                select(name="q3")
+                    case person.q3
+                        when 'female'
+                            option(value="male") Male
+                            option(value="female" selected) Female
+                            option(value="non-binary") Non-Binary
+                            option(value="other") Other
+                        when 'non-binary'
+                            option(value="male") Male
+                            option(value="female") Female
+                            option(value="non-binary" selected) Non-Binary
+                            option(value="other") Other
+                        when 'other'
+                            option(value="male") Male
+                            option(value="female") Female
+                            option(value="non-binary") Non-Binary
+                            option(value="other" selected) Other
+                        default
+                            option(value="male" selected) Male
+                            option(value="female") Female
+                            option(value="non-binary") Non-Binary
+                            option(value="other") Other
             p
                 input(type='submit', value='Submit', class='btn')
 

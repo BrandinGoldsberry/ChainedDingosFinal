@@ -29,6 +29,7 @@ app.get('/', routes.home);
 app.post('/createAccount', urlencodedParser, routes.createaccount);
 app.post('/editAccount', urlencodedParser, routes.editaccount);
 app.get('/login', routes.signUpLogIn);
+app.get('/api', routes.api);
 app.post('/authenticate', urlencodedParser, routes.authenticate);
 app.get('/account', routes.user);
 app.get('/logout', routes.logOut);

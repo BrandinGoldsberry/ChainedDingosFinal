@@ -11,15 +11,27 @@ block content
                 p Password: &nbsp;
                     input(type='password' name='password')
                 p Email: &nbsp;
-                    input(type='text' name='email')
+                    input(type='email' name='email')
                 p Age: &nbsp;
-                    input(type='text' name='age')
+                    input(type='number' name='age')
                 p What is your favourite primary colour? (Red, Yellow or Blue): &nbsp;
-                    input(type='text' name='q1')
+                    select(name="q1")
+                        option(value="Red") Red
+                        option(value="Yellow") Yellow
+                        option(value="Blue") Blue
                 p How many siblings do you have? &nbsp;
-                    input(type='text' name='q2')
+                    select(name="q2")
+                        option(value="Zero") 0
+                        option(value="One") 1
+                        option(value="Two") 2
+                        option(value="Three") 3
+                        option(value="FourPlus") 4+
                 p What do you identify as? (Male, Female, Non-Binary, or Other): &nbsp;
-                    input(type='text' name='q3') 
+                    select(name="q3")
+                        option(value="Male") Male
+                        option(value="Female") Female
+                        option(value="Non-Binary") Non-Binary
+                        option(value="Other") Other
                 p 
                     input(type='submit' value='Submit' class='btn')
 

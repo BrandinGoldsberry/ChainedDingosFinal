@@ -25,6 +25,110 @@ var accountSchema = mongoose.Schema({
 
 var Account = mongoose.model('People_Collection', accountSchema);
 
+exports.api = (req, res) => {
+    Account.find((err, accts) => {
+        var returnDoc = {
+            Ages: {
+                mean: 0,
+                median: 0,
+                upperQuart: 0,
+                lowerQuart: 0,
+                min: 0,
+                max: 0,
+            },
+            Q1: {
+                Red: 0,
+                Yellow: 0,
+                Blue: 0
+            },
+            Q2: {
+                Zero: 0,
+                One: 0,
+                Two: 0,
+                Three: 0,
+                FourPlus: 0,
+            },
+            Q3: {
+                male: 0,
+                female: 0,
+                nonBinary: 0,
+                other: 0
+            }
+        };
+        var ageCollection = [];
+        var siblingCollection = [];
+        for (const doc in accts) {
+            if(accts[doc].age) {
+                ageCollection.push(accts[doc].age);
+            }
+            if(accts[doc].q1) {
+                switch (accts[doc].q1.toLowerCase()) {
+                    case 'red':
+                        returnDoc.Q1.Red += 1;
+                        break;
+                    case 'yellow':
+                        returnDoc.Q1.Yellow += 1;
+                        break;
+                    case 'blue':
+                        returnDoc.Q1.Blue += 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if(accts[doc].q2) {
+                switch (accts[doc].q2.toLowerCase()) {
+                    case 'zero':
+                        returnDoc.Q2.Zero += 1;
+                        break;
+                    case 'one':
+                        returnDoc.Q2.One += 1;
+                        break;
+                    case 'two':
+                        returnDoc.Q2.Two += 1;
+                        break;
+                    case 'three':
+                        returnDoc.Q2.Three += 1;
+                        break;
+                    case 'fourplus':
+                        returnDoc.Q2.FourPlus += 1;
+                    default:
+                        break;
+                }
+            }
+            if(accts[doc].q3) {
+                switch (accts[doc].q3.toLowerCase()) {
+                    case 'male':
+                        returnDoc.Q3.male += 1;
+                        break;
+                    case 'female':
+                        returnDoc.Q3.female += 1;
+                        break;
+                    case 'non-binary':
+                        returnDoc.Q3.nonBinary += 1;
+                        break;
+                    default:
+                        returnDoc.Q3.other += 1;
+                        break;
+                }
+            }
+        }
+        ageCollection.sort(function(a, b){return a-b});
+        console.log(ageCollection[Math.floor(ageCollection.length / 2)]);
+        returnDoc.Ages.median = parseInt(ageCollection[Math.floor(ageCollection.length / 2)]);
+        returnDoc.Ages.upperQuart = parseInt(ageCollection[Math.floor(ageCollection.length / 4)]);
+        returnDoc.Ages.lowerQuart = parseInt(ageCollection[Math.floor((ageCollection.length / 4) * 3)]);
+        returnDoc.Ages.max = parseInt(ageCollection[ageCollection.length - 1]);
+        returnDoc.Ages.min = parseInt(ageCollection[0]);
+        for (const age in ageCollection) {
+            returnDoc.Ages.mean += ageCollection[age];
+        }
+        returnDoc.Ages.mean /= ageCollection.length;
+
+        res.send(returnDoc);
+    });
+}
+
 //Home Renderer
 exports.home = (req, res) => {
     var hideSignIn;
