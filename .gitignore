@@ -88,3 +88,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 db.bat
+
+populate.py
+names.json
