@@ -116,14 +116,15 @@ exports.api = (req, res) => {
         ageCollection.sort(function(a, b){return a-b});
         console.log(ageCollection[Math.floor(ageCollection.length / 2)]);
         returnDoc.Ages.median = parseInt(ageCollection[Math.floor(ageCollection.length / 2)]);
-        returnDoc.Ages.upperQuart = parseInt(ageCollection[Math.floor(ageCollection.length / 4)]);
-        returnDoc.Ages.lowerQuart = parseInt(ageCollection[Math.floor((ageCollection.length / 4) * 3)]);
+        returnDoc.Ages.lowerQuart = parseInt(ageCollection[Math.floor(ageCollection.length / 4)]);
+        returnDoc.Ages.upperQuart = parseInt(ageCollection[Math.floor((ageCollection.length / 4) * 3)]);
         returnDoc.Ages.max = parseInt(ageCollection[ageCollection.length - 1]);
         returnDoc.Ages.min = parseInt(ageCollection[0]);
-        for (const age in ageCollection) {
-            returnDoc.Ages.mean += ageCollection[age];
+        for (const age of ageCollection) {
+            returnDoc.Ages.mean += parseInt(age);
         }
-        returnDoc.Ages.mean /= ageCollection.length;
+        
+        returnDoc.Ages.mean = Math.floor(returnDoc.Ages.mean / ageCollection.length);
 
         res.send(returnDoc);
     });
