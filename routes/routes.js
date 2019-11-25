@@ -138,7 +138,7 @@ exports.home = (req, res) => {
         let cookie = JSON.parse(req.cookies.remembered);
         req.session.user = cookie;
     }
-    console.log(req.session.user);
+    // console.log(req.session.user);
     
     if(req.session.user && req.session.user.isAuthenticated) {
         hideSignIn = "hideSignIn";

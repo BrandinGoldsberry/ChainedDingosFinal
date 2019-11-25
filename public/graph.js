@@ -1,7 +1,15 @@
 var canvas = document.getElementById("canvas");
-var context = canvas.getContext("2d");
-context.fillStyle("#328fa8");
-context.fillRect(0, 0, 150, 75);
+var ctx = canvas.getContext("2d");
+
+function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color ){
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(centerX,centerY);
+    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fill();
+}
+drawPieSlice(ctx, 150,150,150, Math.PI/2, Math.PI/2 + Math.PI/4, "#ff0000");
 
 // const canvas;
 // const context;
