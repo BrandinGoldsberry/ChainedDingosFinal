@@ -20,7 +20,13 @@ var accountSchema = mongoose.Schema({
     age: String,
     q1: String,
     q2: String,
-    q3: String
+    q3: String,
+    avatar: {
+        eyes: Number,
+        nose: Number,
+        mouth: Number,
+        color: String
+    }
 });
 
 var Account = mongoose.model('People_Collection', accountSchema);
@@ -199,7 +205,13 @@ exports.createaccount = (req, res) => {
             age: req.body.age,
             q1: req.body.q1.toLowerCase(),
             q2: req.body.q2.toLowerCase(),
-            q3: req.body.q3.toLowerCase()
+            q3: req.body.q3.toLowerCase(),
+            avatar: {
+                eyes: parseInt(req.body.eyesOption),
+                nose: parseInt(req.body.noseOption),
+                mouth: parseInt(req.body.mouthOption),
+                color: req.body.colorOption
+            }
         });
         account.save(function (err, account) {
             if(err) return console.error(err)
@@ -220,27 +232,57 @@ exports.editaccount = (req, res) => {
         console.log(account);
         
         if(account) {
-            bcrypt.hash(req.body.Password, null, null, (err, result) => {
+            if(req.body.Password === "") {
                 if (err) return console.error(err);
-                console.log(req.body);
-                account.name = req.body.Username.toLowerCase();
-                account.age = req.body.Age;
-                account.password = result;
-                account.email = req.body.Email.toLowerCase();
-                account.q1 = req.body.Q1.toLowerCase();
-                account.q2 = req.body.Q2.toLowerCase();
-                account.q3 = req.body.Q3.toLowerCase();
-        
-                account.save(function (err, account) {
+                    console.log(req.body);
+                    account.name = req.body.Username.toLowerCase();
+                    account.age = req.body.Age;
+                    account.email = req.body.Email.toLowerCase();
+                    
+                    account.q1 = req.body.Q1.toLowerCase();
+                    account.q2 = req.body.Q2.toLowerCase();
+                    account.q3 = req.body.Q3.toLowerCase();
+                    account.avatar.eyes = parseInt(req.body.eyesOption);
+                    account.avatar.nose = parseInt(req.body.noseOption);
+                    account.avatar.mouth = parseInt(req.body.mouthOption);
+                    account.avatar.color = req.body.colorOption;
+                    account.save(function (err, account) {
+                        if (err) return console.error(err);
+                        console.log(req.body.Username + ' updated');
+                        req.session.user = {
+                            isAuthenticated: true,
+                            username: account.username,
+                            id: account.id
+                        }
+                    });
+            } else {
+                bcrypt.hash(req.body.Password, null, null, (err, result) => {
                     if (err) return console.error(err);
-                    console.log(req.body.Username + ' updated');
-                    req.session.user = {
-                        isAuthenticated: true,
-                        username: account.username,
-                        id: account.id
-                    }
+                    console.log(req.body);
+                    account.name = req.body.Username.toLowerCase();
+                    account.age = req.body.Age;
+                    account.password = result;
+                    account.email = req.body.Email.toLowerCase();
+                    
+                    account.q1 = req.body.Q1.toLowerCase();
+                    account.q2 = req.body.Q2.toLowerCase();
+                    account.q3 = req.body.Q3.toLowerCase();
+                    account.avatar.eyes = parseInt(req.body.eyesOption);
+                    account.avatar.nose = parseInt(req.body.noseOption);
+                    account.avatar.mouth = parseInt(req.body.mouthOption);
+                    account.avatar.color = req.body.colorOption;
+                    account.save(function (err, account) {
+                        if (err) return console.error(err);
+                        console.log(req.body.Username + ' updated');
+                        req.session.user = {
+                            isAuthenticated: true,
+                            username: account.username,
+                            id: account.id
+                        }
+                    });
                 });
-            });
+            }
+
         }
     });
     res.redirect('/account');
