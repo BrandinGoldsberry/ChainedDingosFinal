@@ -51,9 +51,3 @@ function drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, color
     ctx.closePath();
     ctx.fill();
 }
-var piechart = new Piechart({
-    canvas: canvas,
-    data: answers,
-    colors: ["#ff0000", "#57d9ff", "#fde23e"]
-});
-piechart.draw();

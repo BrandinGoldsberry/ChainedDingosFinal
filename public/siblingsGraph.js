@@ -52,11 +52,3 @@ var Piechart = function(options){
         ctx.closePath();
         ctx.fill();
     }
-    var piechart = new Piechart(
-        {
-            canvas:canvas,
-            data:answers,
-            colors:["#ff0000", "#57d9ff", "#fde23e", "#32a852", "#a232a8"]
-        }
-        );
-        piechart.draw();
