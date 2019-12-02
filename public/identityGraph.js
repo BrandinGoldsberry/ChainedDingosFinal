@@ -1,12 +1,5 @@
 var canvas = document.getElementById("canvas3");
 var ctx = canvas.getContext("2d");
- 
-var answers = {
-    "Male": 10,
-    "Female": 14,
-    "Nonbinary": 2,
-    "Other": 7
-};
 
 var Piechart = function(options){
     this.options = options;

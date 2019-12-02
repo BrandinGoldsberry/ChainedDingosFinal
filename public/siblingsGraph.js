@@ -1,13 +1,5 @@
 var canvas = document.getElementById("canvas2");
 var ctx = canvas.getContext("2d");
- 
-var answers = {
-    "0": 10,
-    "1": 14,
-    "2": 2,
-    "3": 8,
-    "4+": 6
-};
 
 var Piechart = function(options){
     this.options = options;

@@ -1,12 +1,6 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-var answers = {
-    "Red": 10,
-    "Blue": 14,
-    "Yellow": 2
-};
-
 var Piechart = function (options) {
     this.options = options;
     this.canvas = options.canvas;
