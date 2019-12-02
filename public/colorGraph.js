@@ -10,15 +10,15 @@ var Piechart = function (options) {
     this.draw = function () {
         var total_value = 0;
         var color_index = 0;
-        for (var categ in this.options.data) {
-            var val = this.options.data[categ];
-            total_value += val;
+        for (var category in this.options.data) {
+            var value = this.options.data[category];
+            total_value += value;
         }
 
         var start_angle = 0;
-        for (categ in this.options.data) {
-            val = this.options.data[categ];
-            var slice_angle = 2 * Math.PI * val / total_value;
+        for (category in this.options.data) {
+            value = this.options.data[category];
+            var slice_angle = 2 * Math.PI * value / total_value;
 
             drawPieSlice(
                 this.ctx,

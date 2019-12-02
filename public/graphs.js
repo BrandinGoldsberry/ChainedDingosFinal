@@ -11,7 +11,6 @@ fetch('http://localhost:3000/api')
                 canvas: canvas1,
                 data: jsonVal.Q1,
                 colors: ["#ff0000", "#57d9ff", "#fde23e"],
-                
                 }
                 );
                 colorPiechart.draw();
