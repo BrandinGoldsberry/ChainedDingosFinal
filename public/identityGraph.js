@@ -1,10 +1,10 @@
 var canvas = document.getElementById("canvas3");
-var ctx = canvas.getContext("2d");
+var context = canvas.getContext("2d");
 
 var Piechart = function(options){
     this.options = options;
     this.canvas = options.canvas;
-    this.ctx = this.canvas.getContext("2d");
+    this.context = this.canvas.getContext("2d");
     this.colors = options.colors;
     
     this.draw = function(){
@@ -21,7 +21,7 @@ var Piechart = function(options){
             var slice_angle = 2 * Math.PI * value / total_value;
             
             drawPieSlice(
-                this.ctx,
+                this.context,
                 this.canvas.width/2,
                 this.canvas.height/2,
                 Math.min(this.canvas.width/2,this.canvas.height/2),
@@ -36,11 +36,11 @@ var Piechart = function(options){
             
         }
     }
-    function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color ){
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.closePath();
-        ctx.fill();
+    function drawPieSlice(context,centerX, centerY, radius, startAngle, endAngle, color ){
+        context.fillStyle = color;
+        context.beginPath();
+        context.moveTo(centerX,centerY);
+        context.arc(centerX, centerY, radius, startAngle, endAngle);
+        context.closePath();
+        context.fill();
     }
