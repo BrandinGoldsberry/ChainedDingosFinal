@@ -34,11 +34,11 @@ block content
                         option(value="Other") Other
                 img(id="avatarImg" width="100" height='100')
                 p Nose Option:
-                    input(type="number", name="noseOption", id="noseOption" value=0)
+                    input(type="number", name="noseOption", id="noseOption" value=0 min="0" max="9")
                 p Mouth Option:
-                    input(type="number", name="mouthOption", id="mouthOption" value=0)
+                    input(type="number", name="mouthOption", id="mouthOption" value=0 min="0" max="8")
                 p Eyes Option:
-                    input(type="number", name="eyesOption", id="eyesOption" value=0)
+                    input(type="number", name="eyesOption", id="eyesOption" value=0 min="0" max="8")
                 p Color:
                     input(type="color", name="colorOption", id="colorOption" value='#AAAAAA')
                 script(src="avatarControl.js")

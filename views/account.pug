@@ -6,11 +6,11 @@ block content
             h3 Avatar: &nbsp;
             img(id="avatarImg" width="100" height='100')
             p Nose Option:
-                input(type="number", name="noseOption", id="noseOption" value=person.avatar.nose)
+                input(type="number", name="noseOption", id="noseOption" value=person.avatar.nose min="0" max="9")
             p Mouth Option:
-                input(type="number", name="mouthOption", id="mouthOption" value=person.avatar.mouth)
+                input(type="number", name="mouthOption", id="mouthOption" value=person.avatar.mouth min="0" max="8")
             p Eyes Option:
-                input(type="number", name="eyesOption", id="eyesOption" value=person.avatar.eyes)
+                input(type="number", name="eyesOption", id="eyesOption" value=person.avatar.eyes min="0" max="8")
             p Color:
                 input(type="color", name="colorOption", id="colorOption" value=person.avatar.color)
             script(src="avatarControl.js")
