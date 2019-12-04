@@ -2,11 +2,82 @@ extends layout
 
 block content
     h3(id='mainTitle') The Chain Dingos!
-    title1="Fav Primary Color"
-    canvas(id="canvas1", height="300", width="300")
-    title2="# Of Siblings"
-    canvas(id="canvas2", height="300", width="300")
-    title3="Identity"
-    canvas(id="canvas3", height="300", width="300")
+    div(id='graphs')
+        div(id='g1' class='graph')
+            p(class='gt') Favourite Primary Colour
+            canvas(id="canvas1", height="300", width="300")
+        div(id='g2' class='graph')
+            p(class='gt') Number of Siblings 
+            canvas(id="canvas2", height="300", width="300")
+        div(id='g3' class='graph')
+            p(class='gt') Gender Identification
+            canvas(id="canvas3", height="300", width="300")
+
+    div(id='legends')
+        div(id='l1' class='legend')
+            div(id='c1' class='legItem')
+                div(id='r' class='legKey')
+                p(class='label') Red: 
+                p(id='red')
+            div(id='c2' class='legItem')
+                div(id='y' class='legKey')
+                p(class='label') Yellow:
+                p(id='yellow')
+            div(id='c3' class='legItem')
+                div(id='b' class='legKey')
+                p(class='label') Blue: 
+                p(id='blue')
+
+
+
+        div(id='l2' class='legend')
+            div(id='s0' class='legItem')
+                div(id='zero' class='legKey')
+                p(class='label') Zero:
+                p(id='zeroSib')
+
+            div(id='s1' class='legItem')
+                div(id='one' class='legKey')
+                p(class='label') One: 
+                p(id='oneSib')
+
+            div(id='s2' class='legItem')
+                div(id='two' class='legKey')
+                p(class='label') Two:
+                p(id='twoSib')
+
+            div(id='s3' class='legItem')
+                div(id='three' class='legKey')
+                p(class='label') Three: 
+                p(id='threeSib')
+
+            div(id='s4' class='legItem')
+                div(id='four' class='legKey')
+                p(class='label') Four+ : 
+                p(id='fourSib')
+
+
+
+        div(id='l3' class='legend')
+            div(id='gi1' class='legItem')
+                div(id='m' class='legKey')
+                p(class='label') Male: 
+                p(id='male')
+
+            div(id='gi2' class='legItem')
+                div(id='f' class='legKey')
+                p(class='label') Female:
+                p(id='female')
+
+            div(id='gi3' class='legItem')
+                div(id='nb' class='legKey')
+                p(class='label') Non-Binary:
+                p(id='nonbinary')
+
+            div(id='gi4' class='legItem')
+                div(id='o' class='legKey')
+                p(class='label') Other: 
+                p(id='other')
+
     script(src="graphs.js")
     
