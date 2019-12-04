@@ -24,6 +24,42 @@ li {
     list-style-type: none;
 }
 
+.label {
+    margin: 0px 10px
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legItem {
+    display: flex;
+    direction: row;
+    margin: 5px;
+    padding: 5px
+}
+
+.legKey {
+    width: 10px;
+    height: 10px;
+    border: solid 1px black;
+}
+
+.graph {
+    margin: 7px;
+    padding: 10px;
+    border: solid 2px black;
+}
+
+.gt {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 22px;
+    text-align: center;
+}
+
 .menu_item {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 10px;
@@ -131,4 +167,72 @@ li {
 
 #nav {
     background: #24B300;
+}
+
+#graphs {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    width: 50%;
+}
+
+#legends {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    width: 36%
+}
+
+#r {
+    background: #AD1136;
+}
+
+#y {
+    background: #DE991D;
+}
+
+#b {
+    background: #3318DE;
+}
+
+#zero {
+    background: #AD1136;
+}
+
+#one {
+    background: #DE991D;
+}
+
+#two {
+    background: #3318DE;
+}
+
+#three {
+    background: #6F03A8;
+}
+
+#four {
+    background: #80DE1D;
+}
+
+#m {
+    background: #AD1136;
+}
+
+#f {
+    background: #DE991D;
+}
+
+#nb {
+    background: #3318DE;
+}
+
+#o {
+    background: #6F03A8;
 }

@@ -1,35 +1,27 @@
 var canvas = document.getElementById("canvas2");
-var ctx = canvas.getContext("2d");
- 
-var answers = {
-    "0": 10,
-    "1": 14,
-    "2": 2,
-    "3": 8,
-    "4+": 6
-};
+var context = canvas.getContext("2d");
 
 var Piechart = function(options){
     this.options = options;
     this.canvas = options.canvas;
-    this.ctx = this.canvas.getContext("2d");
+    this.context = this.canvas.getContext("2d");
     this.colors = options.colors;
     
     this.draw = function(){
         var total_value = 0;
         var color_index = 0;
-        for (var categ in this.options.data){
-            var val = this.options.data[categ];
-            total_value += val;
+        for (var category in this.options.data){
+            var value = this.options.data[category];
+            total_value += value;
         }
         
         var start_angle = 0;
-        for (categ in this.options.data){
-            val = this.options.data[categ];
-            var slice_angle = 2 * Math.PI * val / total_value;
+        for (category in this.options.data){
+            value = this.options.data[category];
+            var slice_angle = 2 * Math.PI * value / total_value;
             
             drawPieSlice(
-                this.ctx,
+                this.context,
                 this.canvas.width/2,
                 this.canvas.height/2,
                 Math.min(this.canvas.width/2,this.canvas.height/2),
@@ -44,11 +36,11 @@ var Piechart = function(options){
             
         }
     }
-    function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color ){
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.closePath();
-        ctx.fill();
+    function drawPieSlice(context,centerX, centerY, radius, startAngle, endAngle, color ){
+        context.fillStyle = color;
+        context.beginPath();
+        context.moveTo(centerX,centerY);
+        context.arc(centerX, centerY, radius, startAngle, endAngle);
+        context.closePath();
+        context.fill();
     }
